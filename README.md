@@ -1,3 +1,30 @@
+# lekoala/silverstripe-softdelete: SS6 write/delete fix
+
+*Maintained by [Restruct](https://github.com/restruct).*
+
+This is a temporary fork of [lekoala/silverstripe-softdelete](https://github.com/lekoala/silverstripe-softdelete). It is upstream `4.0.2` with one fix, and changes nothing else. The package name stays `lekoala/silverstripe-softdelete`.
+
+The fix: on Silverstripe 6, `SoftDeletable` extends `SilverStripe\Core\Extension`, which has no `onBeforeWrite()` or `onBeforeDelete()` (SS5's `DataExtension` had empty stubs). Its `parent::onBeforeWrite()` and `parent::onBeforeDelete()` calls made every write and delete of a soft-deletable record fatal with "Call to undefined method". The two calls are removed; extension hooks are invoked per extension, so there is nothing to chain to. Proposed upstream as well.
+
+> - **One fix only.** Feature requests and other bug fixes belong upstream.
+> - **Retired when upstream releases the fix.** Then remove the repository entry below and go back to a normal constraint. The fork may be archived after that.
+> - **Not affiliated with or endorsed by the upstream author.** Do not report problems with this fork upstream.
+
+## Quick start
+
+```json
+"repositories": [
+    {"type": "vcs", "url": "https://github.com/restruct/silverstripe-softdelete", "only": ["lekoala/silverstripe-softdelete"]}
+],
+"require": {
+    "lekoala/silverstripe-softdelete": "4.0.2-p1"
+}
+```
+
+The pin is exact, so later upstream releases without the fix are not picked over it.
+
+---
+
 # SilverStripe Soft Delete Module
 
 [![Build Status](https://github.com/lekoala/silverstripe-softdelete/actions/workflows/ci.yml/badge.svg)](https://github.com/lekoala/silverstripe-softdelete/actions)
